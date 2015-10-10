@@ -64,6 +64,27 @@ public class DBAdapter {
         return c;
     }
 
+    public int getTotalWattage(){
+        String[] columns = new String[] {dbHelper_ob.KEY_ID,
+                dbHelper_ob.COMPONENT_NAME,
+                dbHelper_ob.USAGE,
+                dbHelper_ob.WATTAGE};
+        opnToRead();
+        Cursor c = database_ob.query(dbHelper_ob.TABLE_NAME, columns,
+                null, null, null, null, null);
+        int total = 0;
+
+        int wattage = c.getInt(Integer.parseInt(dbHelper_ob.WATTAGE));
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
+            total = total + wattage;
+        }
+
+        return total;
+    }
+
+
+
     public long updateldetail(int rowId, String cname, int usage, int wattage){
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper_ob.COMPONENT_NAME, cname);

@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Component List"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,8 +19,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddComponent"></activity>
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".AddComponent"
+            android:label="Add New Component"></activity>
+
+        <activity android:name=".EditActivity"
+            android:label="Edit Component"></activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     DBAdapter adapter_ob;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db_ob;
     ListView componentList;
     Cursor cursor;
+    TextView totalwatt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        totalwatt = (TextView) findViewById(R.id.txt_total_watt);
+        totalwatt.setText("Total Wattage: " + Integer.toString(adapter_ob.getTotalWattage()));
 
 
         //Floating Action Button Code
