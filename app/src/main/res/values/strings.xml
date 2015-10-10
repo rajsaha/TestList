@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TestList</string>
+    <string name="action_settings">Settings</string>
+    <string name="btn_edit_description">Takes user to Edit Button</string>
+    <string name="lbl_component_name">Component</string>
+    <string name="lbl_name_text">Name</string>
+    <string name="lbl_usage_text">Usage</string>
+    <string name="lbl_wattage_text">Wattage</string>
+    <string name="txt_tip_component">Tip: Look for the wattage of your component on the back of the box it came in</string>
+</resources>
