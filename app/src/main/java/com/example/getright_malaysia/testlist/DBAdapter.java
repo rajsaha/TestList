@@ -12,6 +12,7 @@ public class DBAdapter {
     SQLiteDatabase database_ob;
     DBHelper dbHelper_ob;
     Context context;
+    double rate;
 
     public DBAdapter(Context c){
         context = c;
@@ -79,6 +80,47 @@ public class DBAdapter {
             result = result + c.getString( wattageIndex );
         }
         return result;
+    }
+
+    public String getTotalUsage(){
+        String[] column =
+                new String[]{"sum(USAGE) as " + dbHelper_ob.USAGE };
+        opnToRead();
+        Cursor c =
+                database_ob.query( dbHelper_ob.TABLE_NAME, column, null, null, null, null, null );
+
+
+        String result = "";
+        int usageIndex = c.getColumnIndex(dbHelper_ob.USAGE);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            result = result + c.getString( usageIndex );
+        }
+        return result;
+    }
+
+    public double calculateTotalBill(){
+        int watt;
+        int usage;
+        double bill;
+        double rate;
+
+        watt = Integer.parseInt(getTotalWattage());
+        usage = Integer.parseInt(getTotalUsage());
+
+        setRate(0.21);
+        rate = getRate();
+
+        bill = ((watt * usage)/1000) * rate;
+        return bill;
+    }
+
+    public void setRate(double rate){
+        this.rate = rate;
+    }
+
+    public double getRate(){
+        return rate;
     }
 
 
