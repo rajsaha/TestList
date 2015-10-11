@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         totalwatt = (TextView) findViewById(R.id.txt_total_watt);
-        totalwatt.setText("Total Wattage: " + Integer.toString(adapter_ob.getTotalWattage()));
+
 
 
         //Floating Action Button Code
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         componentList = (ListView) findViewById(R.id.lst_cname);
         adapter_ob = new DBAdapter(this);
+        totalwatt.setText("Total Wattage: " + adapter_ob.getTotalWattage());
 
         String[] from = {DBHelper.COMPONENT_NAME, DBHelper.USAGE, DBHelper.WATTAGE};
         int[] to = {R.id.txt_component_name};
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         cursor.requery();
-
+        totalwatt.setText("Total Wattage: " + adapter_ob.getTotalWattage());
     }
 
     @Override

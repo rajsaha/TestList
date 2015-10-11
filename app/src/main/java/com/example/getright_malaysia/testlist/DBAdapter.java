@@ -64,23 +64,21 @@ public class DBAdapter {
         return c;
     }
 
-    public int getTotalWattage(){
-        String[] columns = new String[] {dbHelper_ob.KEY_ID,
-                dbHelper_ob.COMPONENT_NAME,
-                dbHelper_ob.USAGE,
-                dbHelper_ob.WATTAGE};
+    public String getTotalWattage(){
+        String[] column =
+                new String[]{"sum(WATTAGE) as " + dbHelper_ob.WATTAGE };
         opnToRead();
-        Cursor c = database_ob.query(dbHelper_ob.TABLE_NAME, columns,
-                null, null, null, null, null);
-        int total = 0;
+        Cursor c =
+                database_ob.query( dbHelper_ob.TABLE_NAME, column, null, null, null, null, null );
 
-        int wattage = c.getInt(Integer.parseInt(dbHelper_ob.WATTAGE));
 
-        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
-            total = total + wattage;
+        String result = "";
+        int wattageIndex = c.getColumnIndex(dbHelper_ob.WATTAGE);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+            result = result + c.getString( wattageIndex );
         }
-
-        return total;
+        return result;
     }
 
 
