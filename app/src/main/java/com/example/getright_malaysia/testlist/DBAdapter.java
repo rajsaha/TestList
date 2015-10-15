@@ -111,7 +111,7 @@ public class DBAdapter {
         setRate(0.21);
         rate = getRate();
 
-        bill = ((watt * usage)/1000) * rate;
+        bill = (((watt * usage)/1000) * rate) + 3;
         return bill;
     }
 

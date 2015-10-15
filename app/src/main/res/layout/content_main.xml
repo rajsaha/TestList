@@ -12,7 +12,7 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="420dp"
+        android:layout_height="510dp"
         android:id="@+id/lst_cname"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -27,12 +27,14 @@
         android:gravity="center" >
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="0dp"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:id="@+id/txt_total_watt" />
+            android:id="@+id/txt_total_watt"
+            android:textAlignment="center"
+            android:padding="10dp"/>
 
     </RelativeLayout>
 
