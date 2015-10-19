@@ -1,12 +1,18 @@
 package com.example.getright_malaysia.testlist;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,11 +21,17 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     DBAdapter adapter_ob;
@@ -28,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ListView componentList;
     Cursor cursor;
     TextView totalwatt;
-
     String ERROR_LOG = "MainActivity.java";
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Total Watt Bottom Sheet Expander
         totalwatt = (TextView) findViewById(R.id.txt_total_watt);
-
         totalwatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Floating Action Button Code
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+        //get the drawable
+        Drawable myFabSrc = ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_input_add ,getTheme());
+        //copy it in a new one
+        Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
+        //set the color filter, you can use also Mode.SRC_ATOP
+        willBeWhite.mutate().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+        //set it to your fab button initialized before
+        fab.setImageDrawable(willBeWhite);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,56 +111,44 @@ public class MainActivity extends AppCompatActivity {
 
     public void openBottomSheet(View v){
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        TextView txtBackup = (TextView)view.findViewById( R.id.txt_backup);
-        TextView txtDetail = (TextView)view.findViewById( R.id.txt_detail);
-        TextView txtOpen = (TextView)view.findViewById( R.id.txt_open);
-        final TextView txtUninstall = (TextView)view.findViewById( R.id.txt_uninstall);
+        TextView txtTotal = (TextView)view.findViewById( R.id.txt_total);
+        TextView txtTotalKW = (TextView)view.findViewById( R.id.txt_totalKW);
+        TextView txtComponentHighestCost = (TextView)view.findViewById( R.id.txt_component_highest_cost);
 
         final Dialog mBottomSheetDialog = new Dialog(MainActivity.this,
                 R.style.MaterialDialogSheet);
-        mBottomSheetDialog.setContentView (view);
-        mBottomSheetDialog.setCancelable (true);
-        mBottomSheetDialog.getWindow ().setLayout (LinearLayout.LayoutParams.MATCH_PARENT,
+        mBottomSheetDialog.setContentView(view);
+        mBottomSheetDialog.setCancelable(true);
+        mBottomSheetDialog.getWindow ().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        mBottomSheetDialog.getWindow ().setGravity (Gravity.BOTTOM);
+        mBottomSheetDialog.getWindow ().setGravity(Gravity.BOTTOM);
         mBottomSheetDialog.show();
 
-        txtBackup.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked Backup", Toast.LENGTH_SHORT).show();
-                mBottomSheetDialog.dismiss();
+        try{
+            if(adapter_ob.calculateTotalBill() != 0){
+                txtTotal.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
             }
-        });
+        } catch (NumberFormatException e){
+            totalwatt.setText(String.format("Total Bill: 0 RM"));
+            Log.e(ERROR_LOG, "Caught Exception lol");
+        }
 
-        txtDetail.setOnClickListener(new View.OnClickListener() {
+        try{
+            txtTotalKW.setText(String.format("Total Kilowatts Used: %.0f kW", adapter_ob.calculateTotalKW()));
+        } catch (NumberFormatException e){
+            totalwatt.setText(String.format("Total Kilowatts Used: 0 kW"));
+            Log.e(ERROR_LOG, "Caught Exception lol");
+        }
 
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked Detail", Toast.LENGTH_SHORT).show();
-                mBottomSheetDialog.dismiss();
-            }
-        });
-
-        txtOpen.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked Open", Toast.LENGTH_SHORT).show();
-                mBottomSheetDialog.dismiss();
-            }
-        });
-
-        txtUninstall.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clicked Uninstall", Toast.LENGTH_SHORT).show();
-                mBottomSheetDialog.dismiss();
-            }
-        });
+        try{
+            txtComponentHighestCost.setText(String.format("Component with Highest Load: "));
+        } catch (NumberFormatException e){
+            totalwatt.setText(String.format("Component with Highest Load: "));
+            Log.e(ERROR_LOG, "Caught Exception lol");
+        }
     }
+
+
 
     @Override
     public void onResume() {
@@ -151,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
             totalwatt.setText(String.format("Total Bill: 0 RM"));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
+
+
     }
 
     @Override
@@ -169,9 +181,31 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.settings);
+            dialog.setTitle("Change Rate by Country");
+            Spinner spincon = (Spinner) findViewById(R.id.spinner);
+            List<String> list = new ArrayList<String>();
+            list.add("list 1");
+            list.add("list 2");
+            list.add("list 3");
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_single_choice, list);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            try{
+                spincon.setAdapter(dataAdapter);
+            } catch (NullPointerException e){
+
+            }
+            dialog.show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addItemsOnSpinner() {
+
+
     }
 }

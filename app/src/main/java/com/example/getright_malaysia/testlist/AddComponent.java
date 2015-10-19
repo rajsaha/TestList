@@ -2,26 +2,30 @@ package com.example.getright_malaysia.testlist;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class AddComponent extends Activity {
+public class AddComponent extends AppCompatActivity {
 
     DBAdapter adapter;
     DBHelper helper;
     EditText compName, usage, wattage;
-    ImageButton save, reset;
+    Button save, reset;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_component);
+
         compName = (EditText) findViewById(R.id.txt_name);
         usage = (EditText) findViewById(R.id.txt_usage);
         wattage = (EditText) findViewById(R.id.txt_wattage);
-        save = (ImageButton) findViewById(R.id.btn_OK);
-        reset = (ImageButton) findViewById(R.id.btn_undo);
+        save = (Button) findViewById(R.id.btn_OK);
+        reset = (Button) findViewById(R.id.btn_undo);
 
         adapter = new DBAdapter(this);
 

@@ -115,6 +115,18 @@ public class DBAdapter {
         return bill;
     }
 
+    public double calculateTotalKW(){
+        int watt;
+        double total;
+
+        watt = Integer.parseInt(getTotalWattage());
+
+        rate = getRate();
+
+        total = (watt/1000);
+        return total;
+    }
+
     public void setRate(double rate){
         this.rate = rate;
     }

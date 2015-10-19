@@ -7,4 +7,14 @@
     <string name="lbl_usage_text">Usage</string>
     <string name="lbl_wattage_text">Wattage</string>
     <string name="txt_tip_component">Tip: Look for the wattage of your component on the back of the box it came in</string>
+    <string name="country_malaysia">Malaysia</string>
+    <string name="country_usa">USA</string>
+    <string name="country_picker_title">Pick a Country</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="countries_array">
+        <item>@string/country_malaysia</item>
+        <item>@string/country_usa</item>
+    </string-array>
 </resources>

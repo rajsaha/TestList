@@ -31,10 +31,9 @@
             android:layout_height="50dp"
             android:layout_margin="0dp"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:id="@+id/txt_total_watt"
-            android:textAlignment="center"
-            android:padding="10dp"/>
+            android:padding="12dp"/>
 
     </RelativeLayout>
 

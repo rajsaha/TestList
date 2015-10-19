@@ -5,48 +5,44 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|center"
     android:background="@android:color/white"
-    android:padding="10dp"
+    android:padding="0dp"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            android:textColor="#FFFFFF"
+            android:background="#3F51B5"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_weight="0.5"/>
+    </LinearLayout>
+
+
+
 
     <TextView
-        android:id="@+id/txt_backup"
+        android:id="@+id/txt_totalKW"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="15dp"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="Backup"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/txt_detail"
+        android:id="@+id/txt_component_highest_cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="15dp"
         android:gravity="center_vertical"
         android:padding="15dp"
-        android:text="Detail"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/txt_open"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        android:padding="15dp"
-        android:text="Open"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/txt_uninstall"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        android:padding="15dp"
-        android:text="Uninstall"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

@@ -92,57 +92,66 @@
         android:gravity="center"
         >
 
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/custom_button"
+            android:textColor="#FFFFFF" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset"
-            android:id="@+id/btn_undo"
+            android:id="@+id/button3"
             android:layout_gravity="center_horizontal|center"
             android:background="@drawable/custom_button"
-            android:textColor="#FFFFFF"
-            android:layout_marginRight="15dp"/>
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:id="@+id/btn_OK"
+            android:id="@+id/button4"
             android:layout_gravity="center_horizontal|center"
-            android:background="@drawable/custom_button_green"
+            android:background="@drawable/custom_button"
             android:textColor="#FFFFFF"/>
     </LinearLayout>
 
 
     <!--<ImageButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/btn_delete"-->
-    <!--android:clickable="false"-->
-    <!--android:src="@drawable/emptytrash48"-->
-    <!--android:background="@null"-->
-    <!--android:layout_alignTop="@+id/btn_OK"-->
-    <!--android:layout_centerHorizontal="true" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/btn_delete"-->
+        <!--android:clickable="false"-->
+        <!--android:src="@drawable/emptytrash48"-->
+        <!--android:background="@null"-->
+        <!--android:layout_alignTop="@+id/btn_OK"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
     <!--<ImageButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/btn_undo"-->
-    <!--android:src="@drawable/undo48"-->
-    <!--android:background="@null"-->
-    <!--android:layout_alignTop="@+id/btn_delete"-->
-    <!--android:layout_alignRight="@+id/labels"-->
-    <!--android:layout_alignEnd="@+id/labels" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/btn_undo"-->
+        <!--android:src="@drawable/undo48"-->
+        <!--android:background="@null"-->
+        <!--android:layout_alignTop="@+id/btn_delete"-->
+        <!--android:layout_alignRight="@+id/labels"-->
+        <!--android:layout_alignEnd="@+id/labels" />-->
 
     <!--<ImageButton-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/btn_OK"-->
-    <!--android:src="@drawable/ok48"-->
-    <!--android:background="@null"-->
-    <!--android:layout_marginBottom="26dp"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_alignLeft="@+id/labels"-->
-    <!--android:layout_alignStart="@+id/labels" />-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/btn_OK"-->
+        <!--android:src="@drawable/ok48"-->
+        <!--android:background="@null"-->
+        <!--android:layout_marginBottom="26dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignLeft="@+id/labels"-->
+        <!--android:layout_alignStart="@+id/labels" />-->
 
 
 
