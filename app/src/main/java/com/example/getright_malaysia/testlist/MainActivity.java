@@ -82,13 +82,14 @@ public class MainActivity extends AppCompatActivity {
         componentList = (ListView) findViewById(R.id.lst_cname);
         adapter_ob = new DBAdapter(this);
         try{
-            totalwatt.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+            //totalwatt.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
         } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Total Bill: 0 RM"));
+            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
 
-        String[] from = {DBHelper.COMPONENT_NAME, DBHelper.USAGE, DBHelper.WATTAGE};
+        String[] from = {DBHelper.COMPONENT_NAME, DBHelper.USAGE, DBHelper.WATTAGE, DBHelper.UNITS};
         int[] to = {R.id.txt_component_name};
         cursor = adapter_ob.queryName();
         SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.custom_row,
@@ -126,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             if(adapter_ob.calculateTotalBill() != 0){
-                txtTotal.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+                txtTotal.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
             }
         } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Total Bill: 0 RM"));
+            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
 
@@ -156,9 +157,9 @@ public class MainActivity extends AppCompatActivity {
         cursor.requery();
 
         try{
-            totalwatt.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
         } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Total Bill: 0 RM"));
+            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
 
@@ -184,28 +185,71 @@ public class MainActivity extends AppCompatActivity {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.settings);
             dialog.setTitle("Change Rate by Country");
-            Spinner spincon = (Spinner) findViewById(R.id.spinner);
+
+            final Spinner spincon = (Spinner) dialog.findViewById(R.id.spinner);
+            Button ok = (Button) dialog.findViewById(R.id.btn_okay);
+            Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
             List<String> list = new ArrayList<String>();
-            list.add("list 1");
-            list.add("list 2");
-            list.add("list 3");
+            list.add("Malaysia");
+            list.add("Singapore");
+            list.add("Bangladesh");
+
             ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_single_choice, list);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
+
             try{
                 spincon.setAdapter(dataAdapter);
             } catch (NullPointerException e){
 
             }
+
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(spincon.getSelectedItem() == "Malaysia"){
+                        adapter_ob.setRate(0.21);
+                        try{
+                            String temp = Double.toString(adapter_ob.calculateTotalBill());
+                            totalwatt.setText("Monthly Bill: " + temp + " RM");
+                        } catch (NumberFormatException e){
+                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                            Log.e(ERROR_LOG, "Caught Exception lol");
+                        }
+                    } else if(spincon.getSelectedItem() == "Bangladesh"){
+                        adapter_ob.setRate(0.1);
+                        try{
+                            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+                        } catch (NumberFormatException e){
+                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                            Log.e(ERROR_LOG, "Caught Exception lol");
+                        }
+                    } else if (spincon.getSelectedItem() == "Singapore"){
+                        adapter_ob.setRate(0.4);
+                        try{
+                            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+                        } catch (NumberFormatException e){
+                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                            Log.e(ERROR_LOG, "Caught Exception lol");
+                        }
+                    }
+                    dialog.dismiss();
+                }
+            });
+
+            cancel.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    dialog.dismiss();
+                }
+            });
+
+            dialog.setCanceledOnTouchOutside(false);
             dialog.show();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void addItemsOnSpinner() {
-
-
     }
 }

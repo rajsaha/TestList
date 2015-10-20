@@ -75,15 +75,34 @@
             android:textSize="16sp" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_units_text"
+            android:id="@+id/lbl_number"
+            android:paddingTop="16dp"
+            android:textSize="12sp"
+            android:paddingBottom="8dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/txt_units"
+            android:hint="Example: 2"
+            android:paddingBottom="16dp"
+            android:textSize="16sp" />
+
+        <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/txt_tip_component"
             android:id="@+id/textView"
             android:gravity="center"
-            android:layout_below="@+id/labels"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -91,7 +110,8 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:layout_gravity="center|bottom"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
 
 
         <Button

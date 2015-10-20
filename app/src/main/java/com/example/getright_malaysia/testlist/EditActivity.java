@@ -24,7 +24,7 @@ public class EditActivity extends AppCompatActivity {
     int input_usage, input_wattage;
     String error_log = "EditActivity.java";
 
-    EditText compName, usage, wattage;
+    EditText compName, usage, wattage, units;
     Button save, reset, delete;
 
     public void onCreate(Bundle savedInstanceState){
@@ -35,6 +35,7 @@ public class EditActivity extends AppCompatActivity {
         compName = (EditText) findViewById(R.id.txt_name);
         usage = (EditText) findViewById(R.id.txt_usage);
         wattage = (EditText) findViewById(R.id.txt_wattage);
+        units = (EditText) findViewById(R.id.txt_units);
         save = (Button) findViewById(R.id.btn_OK);
         delete = (Button) findViewById(R.id.btn_delete);
 
@@ -49,6 +50,7 @@ public class EditActivity extends AppCompatActivity {
                 compName.setText(c.getString(1));
                 usage.setText(Integer.toString(c.getInt(2)));
                 wattage.setText(Integer.toString(c.getInt(3)));
+                units.setText(Integer.toString(c.getInt(4)));
             } while (c.moveToNext());
         }
 
@@ -57,7 +59,8 @@ public class EditActivity extends AppCompatActivity {
             public void onClick(View view) {
                 dbadapter.updateldetail(rowId, compName.getText().toString(),
                         Integer.parseInt(usage.getText().toString()),
-                        Integer.parseInt(wattage.getText().toString()));
+                        Integer.parseInt(wattage.getText().toString()),
+                        Integer.parseInt(units.getText().toString()));
                 finish();
             }
         });

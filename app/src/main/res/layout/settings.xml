@@ -4,16 +4,29 @@
     android:layout_height="match_parent"
     android:layout_margin="25dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search for your country "
-        android:id="@+id/lbl_spinner"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="10dp" />
-
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="OK"
+            android:id="@+id/btn_okay" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/btn_cancel" />
+    </LinearLayout>
 </LinearLayout>

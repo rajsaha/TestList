@@ -13,7 +13,7 @@ public class AddComponent extends AppCompatActivity {
 
     DBAdapter adapter;
     DBHelper helper;
-    EditText compName, usage, wattage;
+    EditText compName, usage, wattage, units;
     Button save, reset;
 
     @Override
@@ -24,6 +24,7 @@ public class AddComponent extends AppCompatActivity {
         compName = (EditText) findViewById(R.id.txt_name);
         usage = (EditText) findViewById(R.id.txt_usage);
         wattage = (EditText) findViewById(R.id.txt_wattage);
+        units = (EditText) findViewById(R.id.txt_units);
         save = (Button) findViewById(R.id.btn_OK);
         reset = (Button) findViewById(R.id.btn_undo);
 
@@ -35,8 +36,8 @@ public class AddComponent extends AppCompatActivity {
                 String input_name = compName.getText().toString();
                 int input_usage = Integer.parseInt(usage.getText().toString());
                 int input_wattage = Integer.parseInt(wattage.getText().toString());
-
-                long val = adapter.insertDetails(input_name, input_usage, input_wattage);
+                int input_units = Integer.parseInt(units.getText().toString());
+                long val = adapter.insertDetails(input_name, input_usage, input_wattage, input_units);
                 finish();
             }
         });
@@ -47,6 +48,7 @@ public class AddComponent extends AppCompatActivity {
                 compName.setText("");
                 usage.setText("");
                 wattage.setText("");
+                units.setText("");
             }
         });
     }
