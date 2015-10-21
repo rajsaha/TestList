@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,10 +27,30 @@ public class AddComponent extends AppCompatActivity {
         usage = (EditText) findViewById(R.id.txt_usage);
         wattage = (EditText) findViewById(R.id.txt_wattage);
         units = (EditText) findViewById(R.id.txt_units);
+
         save = (Button) findViewById(R.id.btn_OK);
         reset = (Button) findViewById(R.id.btn_undo);
 
         adapter = new DBAdapter(this);
+
+        compName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.toString().equals("fan")){
+                    wattage.setText("140");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

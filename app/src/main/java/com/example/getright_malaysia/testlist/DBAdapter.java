@@ -11,13 +11,9 @@ public class DBAdapter {
     Context context;
     double rate;
 
-    public DBAdapter(){
-        setRate(0.21);
-    }
-
     public DBAdapter(Context c){
         context = c;
-        setRate(0.21);
+        setRate(0.4);
     }
 
     public DBAdapter opnToRead(){
@@ -68,22 +64,6 @@ public class DBAdapter {
         return c;
     }
 
-//    public int getSumTotal(){
-//        opnToRead();
-//        Cursor c =
-//                database_ob.rawQuery("UPDATE " + dbHelper_ob.TABLE_NAME + " SET " +
-//                                dbHelper_ob.ROW_TOTAL + " = " + dbHelper_ob.USAGE + " * "
-//                        + dbHelper_ob.WATTAGE + " * " + dbHelper_ob.UNITS, null );
-//
-//        int result = 0;
-//        int row_total_index = c.getColumnIndex(dbHelper_ob.ROW_TOTAL);
-//
-//        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-//            result = result + c.getInt( row_total_index );
-//        }
-//        return result;
-//    }
-
     public String getRowTotal(){
         String[] column =
                 new String[]{"sum(WATTAGE * USAGE * UNITS) as " + dbHelper_ob.ROW_TOTAL };
@@ -100,6 +80,28 @@ public class DBAdapter {
         }
         return result;
     }
+
+//    public String getCompWithMostLoad(){
+//        String[] column =
+//                new String[]{"SELECT WATTAGE as " + dbHelper_ob.ROW_TOTAL };
+//        opnToRead();
+//        Cursor c =
+//                database_ob.query(dbHelper_ob.TABLE_NAME, column, null, null, null, null, null);
+//
+//        int result = 0;
+//        int rowIndex = c.getColumnIndex(dbHelper_ob.WATTAGE);
+//        String compRowIndex = "";
+//        int rowvalue = c.getInt(c.getColumnIndex(dbHelper_ob.WATTAGE));
+//
+//        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
+//            if(rowvalue > result){
+//                result = c.getInt(c.getColumnIndex(dbHelper_ob.WATTAGE));
+//            }
+//
+//            compRowIndex = c.getString(c.getColumnIndex(result));
+//        }
+//        return compRowIndex;
+//    }
 
     public String getTotalWattage(){
         String[] column =
@@ -118,39 +120,6 @@ public class DBAdapter {
         return result;
     }
 
-    public String getTotalUsage(){
-        String[] column =
-                new String[]{"sum(USAGE) as " + dbHelper_ob.USAGE };
-        opnToRead();
-        Cursor c =
-                database_ob.query( dbHelper_ob.TABLE_NAME, column, null, null, null, null, null );
-
-
-        String result = "";
-        int usageIndex = c.getColumnIndex(dbHelper_ob.USAGE);
-
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            result = result + c.getString( usageIndex );
-        }
-        return result;
-    }
-
-//    public double calculateTotalBill(){
-//        int watt;
-//        int usage;
-//        double bill;
-//        double rate;
-//
-//        watt = Integer.parseInt(getTotalWattage());
-//        usage = Integer.parseInt(getTotalUsage());
-//
-//        //setRate(0.21);
-//        rate = getRate();
-//
-//        bill = ((((watt * usage)/1000) * rate) * 30) + 3;
-//        return bill;
-//    }
-
     public double calculateTotalBill(){
         int sumTotal;
 
@@ -158,8 +127,6 @@ public class DBAdapter {
         double rate;
 
         sumTotal = Integer.parseInt(getRowTotal());
-
-        //setRate(0.21);
         rate = getRate();
 
         bill = (((sumTotal/1000) * rate) * 30) + 3;

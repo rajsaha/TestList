@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper{
                 + KEY_ID + " integer primary key autoincrement, "
                 + COMPONENT_NAME + " text not null, "
                 + USAGE + " integer not null,"
-                + WATTAGE + " integer not null,"
+                + WATTAGE + " real not null,"
                 + UNITS + " integer not null,"
                 + ROW_TOTAL + " integer " +
             ");";

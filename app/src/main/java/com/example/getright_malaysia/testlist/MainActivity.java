@@ -1,12 +1,9 @@
 package com.example.getright_malaysia.testlist;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -28,7 +25,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +32,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     DBAdapter adapter_ob;
     DBHelper helper_ob;
-    SQLiteDatabase db_ob;
     ListView componentList;
     Cursor cursor;
     TextView totalwatt;
