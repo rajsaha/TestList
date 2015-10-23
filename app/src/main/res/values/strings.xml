@@ -6,16 +6,29 @@
     <string name="lbl_name_text">Name</string>
     <string name="lbl_usage_text">Usage</string>
     <string name="lbl_wattage_text">Wattage</string>
-    <string name="txt_tip_component">Tip: Look for the wattage of your component on the back of the box it came in</string>
+    <string name="txt_tip_component">Tip: If the wattage does not appear automatically,
+        check the back of the box the component came in.</string>
     <string name="country_malaysia">Malaysia</string>
     <string name="country_usa">USA</string>
     <string name="country_picker_title">Pick a Country</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="lbl_units_text">Units</string>
+    <string name="cmp_fan">Fan</string>
+    <string name="cmp_tube_light">Tube-light</string>
+    <string name="other">Other</string>
+    <string name="spinner_prompt">Select Component</string>
+    <string name="empty_list_text"><![CDATA[<b><font color=#FF0000>Click the Pink Button
+    on the bottom to add a new Component</b>]]></string>
 
     <string-array name="countries_array">
         <item>@string/country_malaysia</item>
         <item>@string/country_usa</item>
+    </string-array>
+
+    <string-array name="components_array">
+        <item>@string/cmp_fan</item>
+        <item>@string/cmp_tube_light</item>
+        <item>@string/other</item>
     </string-array>
 </resources>

@@ -75,9 +75,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         componentList = (ListView) findViewById(R.id.lst_cname);
+        componentList.setEmptyView(findViewById(R.id.emptyElement));
         adapter_ob = new DBAdapter(this);
         try{
-            //totalwatt.setText(String.format("Total Bill: %.0f RM", adapter_ob.calculateTotalBill()));
             totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
         } catch (NumberFormatException e){
             totalwatt.setText(String.format("Monthly Bill: 0 RM"));
@@ -122,18 +122,27 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             if(adapter_ob.calculateTotalBill() != 0){
-                txtTotal.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
+                txtTotal.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
+                Log.e(ERROR_LOG, "okay");
+            } else {
+                txtTotal.setText("Monthly Bill: RM 0");
             }
         } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
-            Log.e(ERROR_LOG, "Caught Exception lol");
+            totalwatt.setText("Monthly Bill: 0 RM");
+            Log.e(ERROR_LOG, "txtTotal text not set");
         }
 
         try{
-            txtTotalKW.setText(String.format("Total Kilowatts Used: %.0f kW", adapter_ob.calculateTotalKW()));
+            if(adapter_ob.calculateTotalKW() != 0){
+                txtTotalKW.setText(String.format("Total Kilowatts Used: %.0f kW",
+                        adapter_ob.calculateTotalKW()));
+            } else {
+                txtTotalKW.setText("Total Kilowatts Used: 0 kW");
+            }
+
         } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Total Kilowatts Used: 0 kW"));
-            Log.e(ERROR_LOG, "Caught Exception lol");
+            totalwatt.setText("Total Kilowatts Used: 0 kW");
+            Log.e(ERROR_LOG, "totalwatt text not set");
         }
 
         try{
@@ -179,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.settings);
-            dialog.setTitle("Change Rate by Country");
+            dialog.setTitle("Change Bill Rate by Country");
 
             final Spinner spincon = (Spinner) dialog.findViewById(R.id.spinner);
             Button ok = (Button) dialog.findViewById(R.id.btn_okay);
@@ -208,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             String temp = Double.toString(adapter_ob.calculateTotalBill());
                             totalwatt.setText("Monthly Bill: " + temp + " RM");
+                            Log.e(ERROR_LOG, "malaysia ok");
                         } catch (NumberFormatException e){
                             totalwatt.setText(String.format("Monthly Bill: 0 RM"));
                             Log.e(ERROR_LOG, "Caught Exception lol");

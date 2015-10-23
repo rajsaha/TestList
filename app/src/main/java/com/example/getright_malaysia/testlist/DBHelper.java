@@ -9,7 +9,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final String TABLE_NAME = "COMPONENTS_TABLE";
 
     //Database Version
-    public static final int VERSION = 5;
+    public static final int VERSION = 6;
 
     public static final String KEY_ID = "_id";
     public static final String COMPONENT_NAME = "C_NAME";
@@ -22,8 +22,8 @@ public class DBHelper extends SQLiteOpenHelper{
             + " ("
                 + KEY_ID + " integer primary key autoincrement, "
                 + COMPONENT_NAME + " text not null, "
-                + USAGE + " integer not null,"
-                + WATTAGE + " real not null,"
+                + USAGE + " real not null,"
+                + WATTAGE + " integer not null,"
                 + UNITS + " integer not null,"
                 + ROW_TOTAL + " integer " +
             ");";

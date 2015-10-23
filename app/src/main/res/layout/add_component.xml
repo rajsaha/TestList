@@ -22,35 +22,14 @@
             android:paddingBottom="8dp"
             android:textSize="12sp" />
 
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_name"
-            android:inputType="text"
             android:hint="Example: LCD TV"
             android:paddingBottom="16dp"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/lbl_usage_text"
-            android:id="@+id/lbl_usage"
-            android:paddingTop="16dp"
-            android:paddingBottom="8dp"
-            android:textSize="12sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:ems="10"
-            android:id="@+id/txt_usage"
-            android:hint="Example: 24 (h)"
-            android:paddingBottom="16dp"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:inputType="textCapSentences"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -66,12 +45,32 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_wattage"
             android:hint="Example: 800 (Watt)"
             android:paddingBottom="16dp"
+            android:inputType="numberDecimal"
             android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_usage_text"
+            android:id="@+id/lbl_usage"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/txt_usage"
+            android:hint="Example: 24 (h)"
+            android:paddingBottom="16dp"
+            android:textSize="16sp"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:layout_width="match_parent"
@@ -95,13 +94,12 @@
             android:textSize="16sp" />
 
         <TextView
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/txt_tip_component"
+            android:textAlignment="center"
             android:id="@+id/textView"
             android:gravity="center_horizontal"
-            android:layout_marginStart="25dp"
-            android:layout_marginLeft="25dp"
             android:layout_marginTop="10dp" />
     </LinearLayout>
 

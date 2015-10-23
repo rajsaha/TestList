@@ -13,7 +13,7 @@ public class DBAdapter {
 
     public DBAdapter(Context c){
         context = c;
-        setRate(0.4);
+        setRate(0.21);
     }
 
     public DBAdapter opnToRead(){
@@ -32,7 +32,7 @@ public class DBAdapter {
         database_ob.close();
     }
 
-    public long insertDetails(String cname, int usage, int wattage, int units){
+    public long insertDetails(String cname, double usage, int wattage, int units){
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper_ob.COMPONENT_NAME, cname);
         contentValues.put(dbHelper_ob.USAGE, usage);
@@ -62,6 +62,25 @@ public class DBAdapter {
                 null, null, null, null);
 
         return c;
+    }
+
+    public Boolean checkEmpty(){
+
+        opnToRead();
+        Cursor mCursor = database_ob.rawQuery("SELECT * FROM " + dbHelper_ob.DATABASE_NAME, null);
+        Boolean rowExists;
+
+        if (mCursor.moveToFirst())
+        {
+            // DO SOMETHING WITH CURSOR
+            rowExists = true;
+
+        } else {
+            // I AM EMPTY
+            rowExists = false;
+        }
+
+        return rowExists;
     }
 
     public String getRowTotal(){
@@ -121,12 +140,12 @@ public class DBAdapter {
     }
 
     public double calculateTotalBill(){
-        int sumTotal;
+        double sumTotal;
 
         double bill;
         double rate;
 
-        sumTotal = Integer.parseInt(getRowTotal());
+        sumTotal = Double.parseDouble(getRowTotal());
         rate = getRate();
 
         bill = (((sumTotal/1000) * rate) * 30) + 3;
@@ -155,7 +174,7 @@ public class DBAdapter {
 
 
 
-    public long updateldetail(int rowId, String cname, int usage, int wattage, int units){
+    public long updateldetail(int rowId, String cname, double usage, int wattage, int units){
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper_ob.COMPONENT_NAME, cname);
         contentValues.put(dbHelper_ob.USAGE, usage);

@@ -49,7 +49,7 @@ public class EditActivity extends AppCompatActivity {
         if(c.moveToFirst()){
             do{
                 compName.setText(c.getString(1));
-                usage.setText(Integer.toString(c.getInt(2)));
+                usage.setText(Double.toString(c.getInt(2)));
                 wattage.setText(Integer.toString(c.getInt(3)));
                 units.setText(Integer.toString(c.getInt(4)));
             } while (c.moveToNext());
@@ -59,7 +59,7 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dbadapter.updateldetail(rowId, compName.getText().toString(),
-                        Integer.parseInt(usage.getText().toString()),
+                        Double.parseDouble(usage.getText().toString()),
                         Integer.parseInt(wattage.getText().toString()),
                         Integer.parseInt(units.getText().toString()));
                 finish();
