@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //get the drawable
-        Drawable myFabSrc = ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_input_add ,getTheme());
+        Drawable myFabSrc = ResourcesCompat.getDrawable(getResources(), android.R.drawable.ic_input_add, getTheme());
         //copy it in a new one
         Drawable willBeWhite = myFabSrc.getConstantState().newDrawable();
         //set the color filter, you can use also Mode.SRC_ATOP
@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
         componentList = (ListView) findViewById(R.id.lst_cname);
         componentList.setEmptyView(findViewById(R.id.emptyElement));
         adapter_ob = new DBAdapter(this);
-        try{
+        try {
             totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             totalwatt.setText(String.format("Monthly Bill: 0 RM"));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
@@ -105,54 +105,53 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void openBottomSheet(View v){
+    public void openBottomSheet(View v) {
         View view = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        TextView txtTotal = (TextView)view.findViewById( R.id.txt_total);
-        TextView txtTotalKW = (TextView)view.findViewById( R.id.txt_totalKW);
-        TextView txtComponentHighestCost = (TextView)view.findViewById( R.id.txt_component_highest_cost);
+        TextView txtTotal = (TextView) view.findViewById(R.id.txt_total);
+        TextView txtTotalKW = (TextView) view.findViewById(R.id.txt_totalKW);
+        TextView txtComponentHighestCost = (TextView) view.findViewById(R.id.txt_component_highest_cost);
 
         final Dialog mBottomSheetDialog = new Dialog(MainActivity.this,
                 R.style.MaterialDialogSheet);
         mBottomSheetDialog.setContentView(view);
         mBottomSheetDialog.setCancelable(true);
-        mBottomSheetDialog.getWindow ().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
+        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        mBottomSheetDialog.getWindow ().setGravity(Gravity.BOTTOM);
+        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
         mBottomSheetDialog.show();
 
-        try{
-            if(adapter_ob.calculateTotalBill() != 0){
+        try {
+            if (adapter_ob.calculateTotalBill() > 0) {
                 txtTotal.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
                 Log.e(ERROR_LOG, "okay");
-            } else {
-                txtTotal.setText("Monthly Bill: RM 0");
+            } else if (adapter_ob.calculateTotalBill() <= 0) {
+                txtTotal.setText("Component List Empty");
             }
-        } catch (NumberFormatException e){
-            totalwatt.setText("Monthly Bill: 0 RM");
+        } catch (NumberFormatException e) {
+            txtTotal.setText("Component List Empty");
             Log.e(ERROR_LOG, "txtTotal text not set");
         }
 
-        try{
-            if(adapter_ob.calculateTotalKW() != 0){
+        try {
+            if (adapter_ob.calculateTotalKW() != 0) {
                 txtTotalKW.setText(String.format("Total Kilowatts Used: %.0f kW",
                         adapter_ob.calculateTotalKW()));
             } else {
                 txtTotalKW.setText("Total Kilowatts Used: 0 kW");
             }
 
-        } catch (NumberFormatException e){
-            totalwatt.setText("Total Kilowatts Used: 0 kW");
+        } catch (NumberFormatException e) {
+            txtTotalKW.setText("Total Kilowatts Used: 0 kW");
             Log.e(ERROR_LOG, "totalwatt text not set");
         }
 
-        try{
+        try {
             txtComponentHighestCost.setText(String.format("Component with Highest Load: "));
-        } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Component with Highest Load: "));
+        } catch (NumberFormatException e) {
+            txtComponentHighestCost.setText(String.format("Component with Highest Load: "));
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
     }
-
 
 
     @Override
@@ -160,14 +159,12 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         cursor.requery();
 
-        try{
-            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
-        } catch (NumberFormatException e){
-            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
-            Log.e(ERROR_LOG, "Caught Exception lol");
+        try {
+            totalwatt.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
+        } catch (NumberFormatException e) {
+            totalwatt.setText(String.format("Monthly Bill: RM 0"));
+            Log.e(ERROR_LOG, "onResume");
         }
-
-
     }
 
     @Override
@@ -188,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.settings);
-            dialog.setTitle("Change Bill Rate by Country");
+            dialog.setTitle("Choose Country");
 
             final Spinner spincon = (Spinner) dialog.findViewById(R.id.spinner);
             Button ok = (Button) dialog.findViewById(R.id.btn_okay);
@@ -203,39 +200,39 @@ public class MainActivity extends AppCompatActivity {
                     android.R.layout.simple_list_item_single_choice, list);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
 
-            try{
+            try {
                 spincon.setAdapter(dataAdapter);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             }
 
             ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(spincon.getSelectedItem() == "Malaysia"){
+                    if (spincon.getSelectedItem() == "Malaysia") {
                         adapter_ob.setRate(0.21);
-                        try{
+                        try {
                             String temp = Double.toString(adapter_ob.calculateTotalBill());
-                            totalwatt.setText("Monthly Bill: " + temp + " RM");
+                            totalwatt.setText("Monthly Bill: RM" + temp);
                             Log.e(ERROR_LOG, "malaysia ok");
-                        } catch (NumberFormatException e){
-                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                        } catch (NumberFormatException e) {
+                            totalwatt.setText(String.format("Monthly Bill: RM 0"));
                             Log.e(ERROR_LOG, "Caught Exception lol");
                         }
-                    } else if(spincon.getSelectedItem() == "Bangladesh"){
+                    } else if (spincon.getSelectedItem() == "Bangladesh") {
                         adapter_ob.setRate(0.1);
-                        try{
-                            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
-                        } catch (NumberFormatException e){
-                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                        try {
+                            totalwatt.setText(String.format("Monthly Bill: TK %.0f", adapter_ob.calculateTotalBill()));
+                        } catch (NumberFormatException e) {
+                            totalwatt.setText(String.format("Monthly Bill: TK 0"));
                             Log.e(ERROR_LOG, "Caught Exception lol");
                         }
-                    } else if (spincon.getSelectedItem() == "Singapore"){
+                    } else if (spincon.getSelectedItem() == "Singapore") {
                         adapter_ob.setRate(0.4);
-                        try{
-                            totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
-                        } catch (NumberFormatException e){
-                            totalwatt.setText(String.format("Monthly Bill: 0 RM"));
+                        try {
+                            totalwatt.setText(String.format("Monthly Bill: SGD %.0f", adapter_ob.calculateTotalBill()));
+                        } catch (NumberFormatException e) {
+                            totalwatt.setText(String.format("Monthly Bill: SGD 0"));
                             Log.e(ERROR_LOG, "Caught Exception lol");
                         }
                     }
@@ -243,9 +240,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            cancel.setOnClickListener(new View.OnClickListener(){
+            cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view){
+                public void onClick(View view) {
                     dialog.dismiss();
                 }
             });

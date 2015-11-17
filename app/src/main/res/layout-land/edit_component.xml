@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/labels"
+        android:layout_margin="15dp"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_name_text"
+            android:id="@+id/lbl_name"
+            android:paddingTop="0dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp" />
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_name"
+            android:inputType="text"
+            android:hint="Example: LCD TV"
+            android:paddingBottom="16dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_wattage_text"
+            android:id="@+id/lbl_wattage"
+            android:paddingTop="16dp"
+            android:textSize="12sp"
+            android:paddingBottom="8dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/txt_wattage"
+            android:hint="Example: 800 (Watt)"
+            android:paddingBottom="16dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_usage_text"
+            android:id="@+id/lbl_usage"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/txt_usage"
+            android:hint="Example: 24 (h)"
+            android:paddingBottom="16dp"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/lbl_units_text"
+            android:id="@+id/lbl_number"
+            android:paddingTop="16dp"
+            android:textSize="12sp"
+            android:paddingBottom="8dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/txt_units"
+            android:hint="Example: 2"
+            android:paddingBottom="16dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_tip_component"
+            android:id="@+id/textView"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_gravity="center|bottom"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:id="@+id/btn_delete"
+            android:background="@drawable/custom_button_2"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="15dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/btn_OK"
+            android:layout_gravity="center_horizontal|center"
+            android:background="@drawable/custom_button_green"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+    </LinearLayout>
+
+
+    <!--<ImageButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btn_delete"-->
+    <!--android:clickable="false"-->
+    <!--android:src="@drawable/emptytrash48"-->
+    <!--android:background="@null"-->
+    <!--android:layout_alignTop="@+id/btn_OK"-->
+    <!--android:layout_centerHorizontal="true" />-->
+
+    <!--<ImageButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btn_undo"-->
+    <!--android:src="@drawable/undo48"-->
+    <!--android:background="@null"-->
+    <!--android:layout_alignTop="@+id/btn_delete"-->
+    <!--android:layout_alignRight="@+id/labels"-->
+    <!--android:layout_alignEnd="@+id/labels" />-->
+
+    <!--<ImageButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btn_OK"-->
+    <!--android:src="@drawable/ok48"-->
+    <!--android:background="@null"-->
+    <!--android:layout_marginBottom="26dp"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignLeft="@+id/labels"-->
+    <!--android:layout_alignStart="@+id/labels" />-->
+
+
+
+</ScrollView>
