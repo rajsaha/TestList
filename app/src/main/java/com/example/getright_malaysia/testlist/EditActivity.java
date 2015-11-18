@@ -49,7 +49,7 @@ public class EditActivity extends AppCompatActivity {
         if(c.moveToFirst()){
             do{
                 compName.setText(c.getString(1));
-                usage.setText(Double.toString(c.getInt(2)));
+                usage.setText(Double.toString(c.getDouble(2)));
                 wattage.setText(Integer.toString(c.getInt(3)));
                 units.setText(Integer.toString(c.getInt(4)));
             } while (c.moveToNext());

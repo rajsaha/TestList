@@ -13,10 +13,12 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         componentList = (ListView) findViewById(R.id.lst_cname);
         componentList.setEmptyView(findViewById(R.id.emptyElement));
         adapter_ob = new DBAdapter(this);
+
         try {
             totalwatt.setText(String.format("Monthly Bill: %.0f RM", adapter_ob.calculateTotalBill()));
         } catch (NumberFormatException e) {
@@ -87,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         String[] from = {DBHelper.COMPONENT_NAME, DBHelper.USAGE, DBHelper.WATTAGE, DBHelper.UNITS};
         int[] to = {R.id.txt_component_name};
         cursor = adapter_ob.queryName();
-        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.custom_row,
+        final SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this, R.layout.custom_row,
                 cursor, from, to);
 
         componentList.setAdapter(cursorAdapter);
@@ -122,7 +125,14 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             if (adapter_ob.calculateTotalBill() > 0) {
-                txtTotal.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
+                if(adapter_ob.getRate() == 0.21){
+                    txtTotal.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
+                } else if (adapter_ob.getRate() == 0.1){
+                    txtTotal.setText(String.format("Monthly Bill: TK %.0f", adapter_ob.calculateTotalBill()));
+                } else if (adapter_ob.getRate() == 0.4){
+                    txtTotal.setText(String.format("Monthly Bill: SGD %.0f", adapter_ob.calculateTotalBill()));
+                }
+
                 Log.e(ERROR_LOG, "okay");
             } else if (adapter_ob.calculateTotalBill() <= 0) {
                 txtTotal.setText("Component List Empty");
@@ -133,22 +143,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            if (adapter_ob.calculateTotalKW() != 0) {
-                txtTotalKW.setText(String.format("Total Kilowatts Used: %.0f kW",
-                        adapter_ob.calculateTotalKW()));
-            } else {
-                txtTotalKW.setText("Total Kilowatts Used: 0 kW");
+            if (adapter_ob.calculateTotalKW() != 0 && adapter_ob.calculateTotalKW() < 1000) {
+                double temporary = adapter_ob.calculateTotalKW();
+                txtTotalKW.setText(String.format("Power Used: %.1f W",
+                        temporary));
+            } else if (adapter_ob.calculateTotalKW() != 0 && adapter_ob.calculateTotalKW() > 1000){
+                double temporary = adapter_ob.calculateTotalKW() / 1000;
+                txtTotalKW.setText(String.format("Power Used: %.1f kW", temporary));
             }
 
         } catch (NumberFormatException e) {
-            txtTotalKW.setText("Total Kilowatts Used: 0 kW");
+            txtTotalKW.setText("Power Used: 0 kW");
             Log.e(ERROR_LOG, "totalwatt text not set");
         }
 
         try {
-            txtComponentHighestCost.setText(String.format("Component with Highest Load: "));
+            txtComponentHighestCost.setText("Highest Load: " + adapter_ob.getCompWithHighLoad());
         } catch (NumberFormatException e) {
-            txtComponentHighestCost.setText(String.format("Component with Highest Load: "));
+            txtComponentHighestCost.setText("Highest Load: ");
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
     }
@@ -213,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                         adapter_ob.setRate(0.21);
                         try {
                             String temp = Double.toString(adapter_ob.calculateTotalBill());
-                            totalwatt.setText("Monthly Bill: RM" + temp);
+                            totalwatt.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
                             Log.e(ERROR_LOG, "malaysia ok");
                         } catch (NumberFormatException e) {
                             totalwatt.setText(String.format("Monthly Bill: RM 0"));

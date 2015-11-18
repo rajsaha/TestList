@@ -70,7 +70,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_usage"
-            android:hint="Example: 24 (h)"
+            android:hint="Number of hours used"
             android:paddingBottom="16dp"
             android:textSize="16sp"/>
 

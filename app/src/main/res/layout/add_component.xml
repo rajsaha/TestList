@@ -110,7 +110,7 @@
         android:layout_gravity="center|bottom"
         android:gravity="center"
         android:layout_marginBottom="10dp"
-        >
+        android:id="@+id/linlay_buttons">
 
         <Button
             android:layout_width="wrap_content"

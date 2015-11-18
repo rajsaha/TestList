@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -17,7 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -28,6 +31,7 @@ public class AddComponent extends AppCompatActivity {
     DBAdapter adapter;
     EditText compName, usage, wattage, units;
     Button save, reset;
+    String LOG = "AddComponent.java";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,6 +138,8 @@ public class AddComponent extends AppCompatActivity {
             }
         });
 
+
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,8 +147,29 @@ public class AddComponent extends AppCompatActivity {
                 double input_usage = Double.parseDouble(usage.getText().toString());
                 int input_wattage = Integer.parseInt(wattage.getText().toString());
                 int input_units = Integer.parseInt(units.getText().toString());
-                long val = adapter.insertDetails(input_name, input_usage, input_wattage, input_units);
-                finish();
+
+                try {
+                    if (compName.getText().toString().trim().length() == 0) {
+
+                        Toast.makeText(AddComponent.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                        Log.e(LOG, "Acknowledgement that if was entered");
+
+                    }
+                } catch (Exception e){
+                    Log.e(LOG, "What's wrong here!");
+                }
+
+                if (compName.getText().toString().trim().length() == 0) {
+
+                    Toast.makeText(AddComponent.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                    Log.e(LOG, "Acknowledgement that if was entered");
+
+                } else {
+                    long val = adapter.insertDetails(input_name, input_usage, input_wattage, input_units);
+                    Toast.makeText(AddComponent.this, input_name + " added", Toast.LENGTH_SHORT).show();
+                    Log.e(LOG, "Did not go into the if part obviously");
+                    finish();
+                }
             }
         });
 
