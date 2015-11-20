@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:id="@+id/emptyElement"
-        android:text="Click the Pink Button on the bottom to add a new Component"
+        android:text="@string/emptyListText"
         android:fontFamily="sans-serif-condensed"
         android:textAlignment="center"
         android:textSize="20sp"

@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_name"
-            android:hint="Example: LCD TV"
+            android:hint="@string/txt_name_hint"
             android:paddingBottom="16dp"
             android:textSize="16sp"
             android:inputType="textCapSentences"/>
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_wattage"
-            android:hint="Example: 800 (Watt)"
+            android:hint="@string/txt_wattage_hint"
             android:paddingBottom="16dp"
             android:inputType="numberDecimal"
             android:textSize="16sp" />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:id="@+id/txt_usage"
-            android:hint="Example: 24 (h)"
+            android:hint="@string/txt_usage_hint"
             android:paddingBottom="16dp"
             android:textSize="16sp"
             android:inputType="numberDecimal" />
@@ -89,7 +89,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_units"
-            android:hint="Example: 2"
+            android:hint="@string/txt_units_hint"
             android:paddingBottom="16dp"
             android:textSize="16sp" />
 
@@ -115,7 +115,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset"
+            android:text="@string/btn_undo_text"
             android:id="@+id/btn_undo"
             android:layout_gravity="center_horizontal|center"
             android:background="@drawable/custom_button"
@@ -125,7 +125,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="@string/btn_ok_text"
             android:id="@+id/btn_OK"
             android:layout_gravity="center_horizontal|center"
             android:background="@drawable/custom_button_green"

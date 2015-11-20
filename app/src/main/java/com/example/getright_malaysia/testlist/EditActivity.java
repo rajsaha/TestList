@@ -1,14 +1,10 @@
 package com.example.getright_malaysia.testlist;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,17 +14,14 @@ import android.widget.Toast;
 
 public class EditActivity extends AppCompatActivity {
     DBAdapter dbadapter;
-    DBHelper openHelper;
     int rowId;
     Cursor c;
-    String input_name;
-    int input_usage, input_wattage;
     String error_log = "EditActivity.java";
 
     EditText compName, usage, wattage, units;
-    Button save, reset, delete;
+    Button save, delete;
 
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_component);
 
@@ -46,8 +39,8 @@ public class EditActivity extends AppCompatActivity {
 
         c = dbadapter.queryAll(rowId);
 
-        if(c.moveToFirst()){
-            do{
+        if (c.moveToFirst()) {
+            do {
                 compName.setText(c.getString(1));
                 usage.setText(Double.toString(c.getDouble(2)));
                 wattage.setText(Integer.toString(c.getInt(3)));
@@ -69,19 +62,19 @@ public class EditActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     alertMessage();
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.e(error_log, "Something went wrong");
                 }
             }
         });
     }
 
-    public void alertMessage(){
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                switch(which){
+    public void alertMessage() {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         dbadapter.deleteOneRecord(rowId);
                         Toast.makeText(EditActivity.this, "Component Deleted", Toast.LENGTH_SHORT).show();

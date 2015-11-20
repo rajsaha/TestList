@@ -20,6 +20,19 @@
     <string name="spinner_prompt">Select Component</string>
     <string name="empty_list_text"><![CDATA[<b><font color=#FF0000>Click the Pink Button
     on the bottom to add a new Component</b>]]></string>
+    <string name="emptyListText">Click the Pink Button on the bottom to add a new Component</string>
+    <string name="txt_name_hint">Example: LCD TV</string>
+    <string name="txt_wattage_hint">Example: 800 (Watt)</string>
+    <string name="txt_usage_hint">Number of hours used</string>
+    <string name="txt_units_hint">Example: 2</string>
+    <string name="btn_okay_text">OK</string>
+    <string name="btn_cancel_text">Cancel</string>
+    <string name="txt_name_hint_land">Example: LCD TV</string>
+    <string name="txt_wattage_hint_land">Example: 800 (Watt)</string>
+    <string name="txt_usage_hint_land">Example: 24 (h)</string>
+    <string name="txt_units_hint_land">Example: 2</string>
+    <string name="btn_undo_text">Reset</string>
+    <string name="btn_ok_text">Save</string>
 
     <string-array name="countries_array">
         <item>@string/country_malaysia</item>

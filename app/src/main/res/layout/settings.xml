@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="OK"
+            android:text="@string/btn_okay_text"
             android:id="@+id/btn_okay" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/btn_cancel_text"
             android:id="@+id/btn_cancel" />
     </LinearLayout>
 </LinearLayout>

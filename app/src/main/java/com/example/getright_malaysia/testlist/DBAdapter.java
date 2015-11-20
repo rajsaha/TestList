@@ -11,29 +11,29 @@ public class DBAdapter {
     Context context;
     double rate;
 
-    public DBAdapter(Context c){
+    public DBAdapter(Context c) {
         context = c;
         setRate(0.21);
     }
 
-    public DBAdapter opnToRead(){
+    public DBAdapter opnToRead() {
         dbHelper_ob = new DBHelper(context, dbHelper_ob.DATABASE_NAME, null, dbHelper_ob.VERSION);
         database_ob = dbHelper_ob.getReadableDatabase();
         return this;
     }
 
-    public DBAdapter opnToWrite(){
+    public DBAdapter opnToWrite() {
         dbHelper_ob = new DBHelper(context, dbHelper_ob.DATABASE_NAME, null, dbHelper_ob.VERSION);
         database_ob = dbHelper_ob.getWritableDatabase();
         return this;
     }
 
-    public void Close(){
+    public void Close() {
         database_ob.close();
     }
 
     //Method for Inserting Details
-    public long insertDetails(String cname, double usage, int wattage, int units){
+    public long insertDetails(String cname, double usage, int wattage, int units) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper_ob.COMPONENT_NAME, cname);
         contentValues.put(dbHelper_ob.USAGE, usage);
@@ -47,7 +47,7 @@ public class DBAdapter {
     }
 
     //Method for querying Component Name
-    public Cursor queryName(){
+    public Cursor queryName() {
         String[] cols = {dbHelper_ob.KEY_ID, dbHelper_ob.COMPONENT_NAME,
                 dbHelper_ob.USAGE, dbHelper_ob.WATTAGE, dbHelper_ob.UNITS};
         opnToWrite();
@@ -57,7 +57,7 @@ public class DBAdapter {
     }
 
     //Method for getting all data from database
-    public Cursor queryAll(int nameId){
+    public Cursor queryAll(int nameId) {
         String[] cols = {dbHelper_ob.KEY_ID, dbHelper_ob.COMPONENT_NAME,
                 dbHelper_ob.USAGE, dbHelper_ob.WATTAGE, dbHelper_ob.UNITS};
         opnToWrite();
@@ -68,14 +68,13 @@ public class DBAdapter {
     }
 
     //Method for checking if database is empty
-    public Boolean checkEmpty(){
+    public Boolean checkEmpty() {
 
         opnToRead();
         Cursor mCursor = database_ob.rawQuery("SELECT * FROM " + dbHelper_ob.DATABASE_NAME, null);
         Boolean rowExists;
 
-        if (mCursor.moveToFirst())
-        {
+        if (mCursor.moveToFirst()) {
             // DO SOMETHING WITH CURSOR
             rowExists = true;
 
@@ -88,9 +87,9 @@ public class DBAdapter {
     }
 
     //Method for getting the total bill by summing wattage usage and units
-    public String getRowTotal(){
+    public String getRowTotal() {
         String[] column =
-                new String[]{"sum(WATTAGE * USAGE * UNITS) as " + dbHelper_ob.ROW_TOTAL };
+                new String[]{"sum(WATTAGE * USAGE * UNITS) as " + dbHelper_ob.ROW_TOTAL};
         opnToRead();
         Cursor c =
                 database_ob.query(dbHelper_ob.TABLE_NAME, column, null, null, null, null, null);
@@ -98,15 +97,15 @@ public class DBAdapter {
         String result = "";
         int rowIndex = c.getColumnIndex(dbHelper_ob.ROW_TOTAL);
 
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            result = result + c.getString( rowIndex );
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = result + c.getString(rowIndex);
 
         }
         return result;
     }
 
     //Method for getting the component with Highest Power Usage
-    public String getHighestLoad(){
+    public String getHighestLoad() {
 //        opnToRead();
 //        Cursor mCursor = database_ob.rawQuery("SELECT C_NAME FROM " + dbHelper_ob.TABLE_NAME + " WHERE WATTAGE = ( SELECT MAX(WATTAGE) FROM " + dbHelper_ob.TABLE_NAME + ");", null);
 //        int index = mCursor.getColumnIndex(dbHelper_ob.COMPONENT_NAME);
@@ -114,46 +113,46 @@ public class DBAdapter {
 //
 //        return result;
         String[] column =
-                new String[]{"C_NAME FROM COMPONENTS_TABLE WHERE WATTAGE  = (SELECT MAX (WATTAGE) " };
+                new String[]{"C_NAME FROM COMPONENTS_TABLE WHERE WATTAGE  = (SELECT MAX (WATTAGE) "};
         opnToRead();
         Cursor c =
-                database_ob.query( "COMPONENTS_TABLE)", column, null, null, null, null, null );
+                database_ob.query("COMPONENTS_TABLE)", column, null, null, null, null, null);
 
 
         String result = "";
         int wattageIndex = c.getColumnIndex(dbHelper_ob.COMPONENT_NAME);
 
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            result = result + c.getString( wattageIndex );
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = result + c.getString(wattageIndex);
         }
         return result;
     }
 
-    public String getCompWithHighLoad(){
+    public String getCompWithHighLoad() {
         String component = getHighestLoad();
         return component;
     }
 
     //Method for acquiring total power consumed
-    public String getTotalWattage(){
+    public String getTotalWattage() {
         String[] column =
-                new String[]{"sum(WATTAGE * UNITS) as " + dbHelper_ob.WATTAGE };
+                new String[]{"sum(WATTAGE * UNITS) as " + dbHelper_ob.WATTAGE};
         opnToRead();
         Cursor c =
-                database_ob.query( dbHelper_ob.TABLE_NAME, column, null, null, null, null, null );
+                database_ob.query(dbHelper_ob.TABLE_NAME, column, null, null, null, null, null);
 
 
         String result = "";
         int wattageIndex = c.getColumnIndex(dbHelper_ob.WATTAGE);
 
-        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext() ){
-            result = result + c.getString( wattageIndex );
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = result + c.getString(wattageIndex);
         }
         return result;
     }
 
     //Method for calcuting total bill using ROW_TOTAL & rate
-    public double calculateTotalBill(){
+    public double calculateTotalBill() {
         double sumTotal;
 
         double bill;
@@ -162,12 +161,12 @@ public class DBAdapter {
         sumTotal = Double.parseDouble(getRowTotal());
         rate = getRate();
 
-        bill = (((sumTotal/1000) * rate) * 30) + 3;
+        bill = (((sumTotal / 1000) * rate) * 30) + 3;
         return bill;
     }
 
     //Method for returning total watt consumed
-    public double calculateTotalKW(){
+    public double calculateTotalKW() {
         double watt;
         double total;
 
@@ -178,17 +177,17 @@ public class DBAdapter {
     }
 
     //Getter and Setter methods for Rate
-    public void setRate(double rate){
+    public void setRate(double rate) {
         this.rate = rate;
     }
-    public double getRate(){
+
+    public double getRate() {
         return rate;
     }
 
 
-
     //Method for updating detail when in the Edit Page
-    public long updateldetail(int rowId, String cname, double usage, int wattage, int units){
+    public long updateldetail(int rowId, String cname, double usage, int wattage, int units) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(dbHelper_ob.COMPONENT_NAME, cname);
         contentValues.put(dbHelper_ob.USAGE, usage);
@@ -202,7 +201,7 @@ public class DBAdapter {
     }
 
     //Method for Deleting Records
-    public int deleteOneRecord(int rowId){
+    public int deleteOneRecord(int rowId) {
         opnToWrite();
         int val = database_ob.delete(dbHelper_ob.TABLE_NAME, dbHelper_ob.KEY_ID
                 + "=" + rowId, null);

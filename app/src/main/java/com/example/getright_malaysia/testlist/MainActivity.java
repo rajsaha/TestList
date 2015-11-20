@@ -13,12 +13,10 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,7 +25,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,11 +122,11 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             if (adapter_ob.calculateTotalBill() > 0) {
-                if(adapter_ob.getRate() == 0.21){
+                if (adapter_ob.getRate() == 0.21) {
                     txtTotal.setText(String.format("Monthly Bill: RM %.0f", adapter_ob.calculateTotalBill()));
-                } else if (adapter_ob.getRate() == 0.1){
+                } else if (adapter_ob.getRate() == 0.1) {
                     txtTotal.setText(String.format("Monthly Bill: TK %.0f", adapter_ob.calculateTotalBill()));
-                } else if (adapter_ob.getRate() == 0.4){
+                } else if (adapter_ob.getRate() == 0.4) {
                     txtTotal.setText(String.format("Monthly Bill: SGD %.0f", adapter_ob.calculateTotalBill()));
                 }
 
@@ -147,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                 double temporary = adapter_ob.calculateTotalKW();
                 txtTotalKW.setText(String.format("Power Used: %.1f W",
                         temporary));
-            } else if (adapter_ob.calculateTotalKW() != 0 && adapter_ob.calculateTotalKW() > 1000){
+            } else if (adapter_ob.calculateTotalKW() != 0 && adapter_ob.calculateTotalKW() > 1000) {
                 double temporary = adapter_ob.calculateTotalKW() / 1000;
                 txtTotalKW.setText(String.format("Power Used: %.1f kW", temporary));
             }
@@ -160,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             txtComponentHighestCost.setText("Highest Load: " + adapter_ob.getCompWithHighLoad());
         } catch (NumberFormatException e) {
-            txtComponentHighestCost.setText("Highest Load: ");
+            txtComponentHighestCost.setText("Highest Load: -");
             Log.e(ERROR_LOG, "Caught Exception lol");
         }
     }

@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/labels"
-        android:layout_margin="15dp"
-        android:layout_weight="0.5">
+        android:layout_margin="15dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_name"
             android:inputType="text"
-            android:hint="Example: LCD TV"
+            android:hint="@string/txt_name_hint_land"
             android:paddingBottom="16dp"
             android:textSize="16sp"/>
 
@@ -49,7 +48,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_wattage"
-            android:hint="Example: 800 (Watt)"
+            android:hint="@string/txt_wattage_hint_land"
             android:paddingBottom="16dp"
             android:textSize="16sp" />
 
@@ -69,7 +68,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_usage"
-            android:hint="Example: 24 (h)"
+            android:hint="@string/txt_usage_hint_land"
             android:paddingBottom="16dp"
             android:textSize="16sp"/>
 
@@ -90,7 +89,7 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/txt_units"
-            android:hint="Example: 2"
+            android:hint="@string/txt_units_hint_land"
             android:paddingBottom="16dp"
             android:textSize="16sp" />
 
