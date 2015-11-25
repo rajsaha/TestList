@@ -26,7 +26,7 @@
     <string name="txt_usage_hint">Number of hours used</string>
     <string name="txt_units_hint">Example: 2</string>
     <string name="btn_okay_text">OK</string>
-    <string name="btn_cancel_text">Cancel</string>
+    <string name="btn_cancel_text">CANCEL</string>
     <string name="txt_name_hint_land">Example: LCD TV</string>
     <string name="txt_wattage_hint_land">Example: 800 (Watt)</string>
     <string name="txt_usage_hint_land">Example: 24 (h)</string>

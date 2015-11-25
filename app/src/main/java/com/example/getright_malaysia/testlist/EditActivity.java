@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ public class EditActivity extends AppCompatActivity {
     int rowId;
     Cursor c;
     String error_log = "EditActivity.java";
+    String title;
 
     EditText compName, usage, wattage, units;
     Button save, delete;
@@ -24,7 +27,6 @@ public class EditActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_component);
-
 
         compName = (EditText) findViewById(R.id.txt_name);
         usage = (EditText) findViewById(R.id.txt_usage);
@@ -42,11 +44,33 @@ public class EditActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
             do {
                 compName.setText(c.getString(1));
+                title = c.getString(1);
                 usage.setText(Double.toString(c.getDouble(2)));
                 wattage.setText(Integer.toString(c.getInt(3)));
                 units.setText(Integer.toString(c.getInt(4)));
             } while (c.moveToNext());
         }
+
+        compName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 0){
+                    compName.setError("Component name required!");
+                }
+            }
+        });
+
+        setTitle("Edit " + title);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

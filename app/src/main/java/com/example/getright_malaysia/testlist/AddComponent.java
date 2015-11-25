@@ -1,6 +1,7 @@
 package com.example.getright_malaysia.testlist;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,7 @@ public class AddComponent extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_component);
+        setContentView(R.layout.add_component_coordinatelayout);
 
         compName = (EditText) findViewById(R.id.txt_name);
         usage = (EditText) findViewById(R.id.txt_usage);
@@ -113,12 +114,16 @@ public class AddComponent extends AppCompatActivity {
                     wattage.setText("45");
                 } else if (userInput.toLowerCase().contains("light")) {
                     wattage.setText("25");
+                } else if (userInput.toLowerCase().contains("washing")) {
+                    wattage.setText("700");
                 }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (editable.length() == 0) {
+                    compName.setError("Component name required!");
+                }
             }
         });
 
@@ -126,32 +131,29 @@ public class AddComponent extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String input_name = compName.getText().toString();
-                double input_usage = Double.parseDouble(usage.getText().toString());
-                int input_wattage = Integer.parseInt(wattage.getText().toString());
-                int input_units = Integer.parseInt(units.getText().toString());
-
                 try {
-                    if (compName.getText().toString().trim().length() == 0) {
+                    if (compName.getText().toString().isEmpty() || usage.getText().toString().isEmpty() ||
+                            wattage.getText().toString().isEmpty() ||
+                            units.getText().toString().isEmpty()) {
+                        Snackbar snackbar = Snackbar.make(findViewById(R.id.add_component_coordinator),
+                                "Please fill all the fields!", Snackbar.LENGTH_SHORT);
+                        snackbar.show();
 
-                        Toast.makeText(AddComponent.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
                         Log.e(LOG, "Acknowledgement that if was entered");
 
+                    } else {
+                        String input_name = compName.getText().toString();
+                        double input_usage = Double.parseDouble(usage.getText().toString());
+                        int input_wattage = Integer.parseInt(wattage.getText().toString());
+                        int input_units = Integer.parseInt(units.getText().toString());
+
+                        long val = adapter.insertDetails(input_name, input_usage, input_wattage, input_units);
+                        Toast.makeText(AddComponent.this, input_name + " added", Toast.LENGTH_SHORT).show();
+                        Log.e(LOG, "Did not go into the if part obviously");
+                        finish();
                     }
-                } catch (Exception e) {
-                    Log.e(LOG, "What's wrong here!");
-                }
-
-                if (compName.getText().toString().trim().length() == 0) {
-
-                    Toast.makeText(AddComponent.this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
-                    Log.e(LOG, "Acknowledgement that if was entered");
-
-                } else {
-                    long val = adapter.insertDetails(input_name, input_usage, input_wattage, input_units);
-                    Toast.makeText(AddComponent.this, input_name + " added", Toast.LENGTH_SHORT).show();
-                    Log.e(LOG, "Did not go into the if part obviously");
-                    finish();
+                } catch (NumberFormatException e) {
+                    Log.e(LOG, "Caught exception --> on Save");
                 }
             }
         });
